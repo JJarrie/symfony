@@ -54,6 +54,17 @@ class ConnectionTest extends TestCase
         );
     }
 
+    public function testFromDsnOnUnixSocket()
+    {
+        $this->assertEquals(
+            new Connection(['stream' => 'messages'], [
+                'host' => '/var/run/redis/redis.sock',
+                'port' => 0,
+            ]),
+            Connection::fromDsn('redis:///var/run/redis/redis.sock')
+        );
+    }
+
     public function testFromDsnWithOptions()
     {
         $this->assertEquals(
